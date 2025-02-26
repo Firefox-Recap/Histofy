@@ -20,6 +20,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '18.x'
+      - name: Enable ES Modules
+        run: |
+            echo "NODE_OPTIONS=--experimental-specifier-resolution=node" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: npm install
