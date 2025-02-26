@@ -46,7 +46,7 @@ Load Temporary Add-on
 
 # Select the file:
 manifest.json from the project directory
-
+```
 ---
 
 ## 🔒 Branch Rules & Contribution Guidelines
