@@ -4,7 +4,7 @@
   "description": "Firefox extension to categorize and summarize browsing history.",
   "main": "index.js",
   "scripts": {
-  "lint": "eslint .",
+  "lint": "eslint . --config eslint.config.mjs",
   "test": "echo \"No test specified\" && exit 0",
   "build": "echo \"No build script specified\" && exit 0"
 },
