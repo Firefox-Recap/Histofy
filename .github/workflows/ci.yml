@@ -9,9 +9,9 @@ on:
       - main
 
 jobs:
-  build-and-test:
+  lint:
+    name: lint
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -22,20 +22,54 @@ jobs:
           node-version: '18.x'
 
       - name: Enable ES Modules
-        run: |
-          echo "NODE_OPTIONS=--experimental-specifier-resolution=node" >> $GITHUB_ENV
+        run: echo "NODE_OPTIONS=--experimental-specifier-resolution=node" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: npm install
 
       - name: Lint code
         run: npm run lint
-        continue-on-error: false
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+
+      - name: Enable ES Modules
+        run: echo "NODE_OPTIONS=--experimental-specifier-resolution=node" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Run tests
         run: npm test
-        continue-on-error: false
+
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.x'
+
+      - name: Enable ES Modules
+        run: echo "NODE_OPTIONS=--experimental-specifier-resolution=node" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Build project
         run: npm run build
-        continue-on-error: false
