@@ -3,7 +3,6 @@
  * -------------------------------
  * Event listener script for monitoring browser history changes.
  * Triggers the history collection and categorization process upon visiting new pages.
-<<<<<<< HEAD
  * Now includes SQL.js initialization for storing categorized history.
  * Enhanced with advanced URL filtering logic.
  */
@@ -170,18 +169,3 @@ browser.webNavigation.onCompleted.addListener(({ url, tabId }) => {
 
 // Initialize the Database
 loadDatabase();
-=======
- */
-
-import { collectHistory } from './historyCollector.js';
-
-// Listen for history changes and update storage
-browser.history.onVisited.addListener(() => {
-  collectHistory().then(historyData => {
-    console.log('Updated History Data:', historyData);
-
-    // Update the stored history data
-    browser.storage.local.set({ historyData });
-  });
-});
->>>>>>> 1f244f523cbb5768314244e9b3828cb5f1bf081e
