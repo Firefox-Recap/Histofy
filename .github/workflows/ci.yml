@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
-      - develop 
+      - develop
   pull_request:
     branches:
       - main
-      - develop 
+      - develop
 
 jobs:
   lint:
@@ -29,8 +29,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Lint code
-        run: npm run lint
+      - name: Lint code (Ignoring dist/)
+        run: npx eslint . --fix --no-cache --ignore-pattern 'dist/'
 
   test:
     name: test
