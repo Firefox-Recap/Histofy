@@ -49,6 +49,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install Transformers.js Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libglib2.0-dev libnss3 libatk-bridge2.0-0 libx11-xcb1
+          
       - name: Run tests
         run: npm test
 
@@ -73,3 +78,6 @@ jobs:
 
       - name: Build project
         run: npm run build
+        
+      - name: Check WebAssembly Assets
+        run: ls -lh dist/assets
