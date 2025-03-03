@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    min-width: 300px;
-    max-width: 400px;
+    min-width: 600px;
+    max-width: 700px;
     background-color: #1e1e1e;
     color: #fff;
 }
@@ -35,26 +35,30 @@ ul#history-list li a:hover {
     text-decoration: underline;
 }
 
+.dwm-nav {
+    display: flex;
+    border: 1px solid black;
+    border-radius: 15px;
+    overflow: hidden;
+    width: fit-content;
+    /* top: 20px;
+    left: 20px; */
+}
+.dwm-nav-item {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    background: rgb(134, 134, 134);
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+    transition: background 0.3s, color 0.3s;
+}
 
-button {
-  background-color: rgb(246, 239, 239);
-  border-radius: 8px;
-  border-width: 0;
-  color: #333333;
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  list-style: none;
-  margin: 0;
-  padding: 5px 6px;
-  text-align: center;
-  transition: all 200ms;
-  vertical-align: baseline;
-  white-space: nowrap;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+.dwm-nav-item:not(:last-child) {
+    border-right: 1px solid black;
+}
+.dwm-nav-item.active {
+    background: #005eff;
+    color: rgba(255, 255, 255, 0.95);
 }

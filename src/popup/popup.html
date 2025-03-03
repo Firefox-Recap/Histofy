@@ -13,12 +13,19 @@
     <!-- Show this while loading -->
     <p id="loading-message" style="display: none;">⏳ Loading history...</p>
 
-    <!-- Buttons for filtering history -->
-    <div id="time-select">
-      <button id="today">Today</button>
-      <button id="week">This Week</button>
-      <button id="month">This Month</button>
+    <!-- Nav for filtering history -->
+    <br>
+    
+    <div class="dwm-nav">
+      <button class="dwm-nav-item active" onclick="selectTab(this)">Day</button>
+      <button class="dwm-nav-item" onclick="selectTab(this)">Week</button>
+      <button class="dwm-nav-item" onclick="selectTab(this)">Month</button>
     </div>
+
+    <br>
+
+    <!-- changes based on day/month/week selected -->
+    <h2 id="selected-view">Day</h2>
 
     <!-- Graph section -->
     <div id="graph">
