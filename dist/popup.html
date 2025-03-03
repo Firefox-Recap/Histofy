@@ -1,19 +1,21 @@
+<!-- popup.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Histofy</title>
-    <link rel="stylesheet" href="popup.css">
+  <meta charset="UTF-8">
+  <title>Histofy</title>
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-    <div class="popup-container">
-        <h2>Histofy - Browsing History</h2>
-        <ul id="history-list">
-            <!-- Categorized history will be injected here -->
-        </ul>
-    </div>
-    <script src="popup.bundle.js"></script>
+  <div class="popup-container">
+    <h2>Histofy - Browsing History</h2>
+    <!-- Show this while loading -->
+    <p id="loading-message" style="display: none;">⏳ Loading history...</p>
+
+    <!-- History results -->
+    <ul id="history-list"></ul>
+  </div>
+  <!-- Make sure to load popup.js AFTER the DOM is ready -->
+  <script src="popup.bundle.js"></script>
 </body>
 </html>
-
