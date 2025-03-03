@@ -1,36 +1,42 @@
+<!-- popup.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Histofy</title>
-    <link rel="stylesheet" href="popup.css">
+  <meta charset="UTF-8">
+  <title>Histofy</title>
+  <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-    <div class="popup-container">
-        <h2>Histofy - Browsing History</h2>
+  <div class="popup-container">
+    <h2>Histofy - Browsing History</h2>
 
-        <div id="time-select">
-            <button id = "today"> Today</button>
-            <button id = "week"> This Week</button>
-            <button id = "month"> This Month </button>
-        </div>
+    <!-- Show this while loading -->
+    <p id="loading-message" style="display: none;">⏳ Loading history...</p>
 
-        <div id = "graph">
-            <!-- GRAPH HERE CHNAGES BASED ON USER SETTINGS-->
-        </div>
-
-        <div id = "summary"> 
-            Summary: 
-        </div>
-
-    
-
-        <ul id="history-list">
-            <!-- Categorized history will be injected here -->
-        </ul>
+    <!-- Buttons for filtering history -->
+    <div id="time-select">
+      <button id="today">Today</button>
+      <button id="week">This Week</button>
+      <button id="month">This Month</button>
     </div>
-    <script src="popup.bundle.js"></script>
+
+    <!-- Graph section -->
+    <div id="graph">
+      <!-- GRAPH HERE CHANGES BASED ON USER SETTINGS -->
+    </div>
+
+    <!-- Summary section -->
+    <div id="summary">
+      Summary:
+    </div>
+
+    <!-- History results -->
+    <ul id="history-list">
+      <!-- Categorized history will be injected here -->
+    </ul>
+  </div>
+
+  <!-- Ensure popup.js loads AFTER the DOM is ready -->
+  <script src="popup.bundle.js"></script>
 </body>
 </html>
-

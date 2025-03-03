@@ -1,27 +1,22 @@
 /**
  * historyCollector.js
- * -------------------------------
- * Module responsible for collecting and categorizing browsing history.
- * Utilizes simple keyword matching for initial categorization.
- * Future Improvements: Integrate NLP model for advanced topic classification.
+ * ---------------------------------------
+ * Collects & categorizes history, then stores it in browser.storage.local.
+ * Uses a 'historyLoading' flag to indicate when the UI should show a spinner.
  */
 
 import initDB, { saveHistory, getHistory } from '../storage/sqlite.js';
 
-const CACHE = new Map();
-const RATE_LIMIT = 500;  // 500ms delay between API calls
+// How often we poll for new history (ms)
+const RATE_LIMIT = 2000;
 
-// Initialize the SQLite database
+// Initialize the SQLite DB
 initDB().then(() => {
-  console.log('SQLite Initialized in historyCollector.');
+  console.log('✅ SQLite Initialized in historyCollector.');
 }).catch(err => console.error('SQLite Initialization Error:', err));
 
 /**
- * Categorizes a history item based on simple keyword matching.
- * Future improvement: Integrate NLP model for advanced categorization.
- * 
- * @param {Object} item - Browsing history item
- * @returns {String} - Category label
+ * Simple keyword-based categorizer
  */
 const categorizeItem = (item) => {
   const url = item.url.toLowerCase();
@@ -32,55 +27,57 @@ const categorizeItem = (item) => {
 };
 
 /**
- * Fetches browsing history in batches and categorizes it.
- * Stores categorized history in SQLite database.
+ * Fetch recent browsing history and store it in SQLite + browser.storage.
+ * Sets a 'historyLoading' flag so the popup knows to show a loading spinner.
  */
-const fetchHistory = async (startTime, endTime) => {
+export const collectHistory = async () => {
   try {
+    // 1. Indicate we're starting to load
+    await browser.storage.local.set({ historyLoading: true });
+
+    // 2. Fetch history from the last 7 days (adjust as needed)
+    const endTime = Date.now();
+    const startTime = endTime - (1000 * 60 * 60 * 24 * 7); // 1 week
     const historyItems = await browser.history.search({
-      text: '',          // Empty text to get all history
+      text: '',
       startTime,
       endTime,
       maxResults: 100
     });
 
-    historyItems.forEach(item => {
-      if (!CACHE.has(item.visitTime)) {
-        CACHE.set(item.visitTime, item);
+    // 3. Categorize and store in SQLite
+    for (const item of historyItems) {
+      const categorizedItem = {
+        title: item.title,
+        url: item.url,
+        category: categorizeItem(item),
+        visitTime: item.lastVisitTime
+      };
+      saveHistory(categorizedItem);
+    }
 
-        // Categorize the history item
-        const categorizedItem = {
-          title: item.title,
-          url: item.url,
-          category: categorizeItem(item),
-          visitTime: item.lastVisitTime
-        };
+    // 4. Once done, grab all history from SQLite
+    const allData = getHistory();
 
-        // Save categorized item to SQLite
-        saveHistory(categorizedItem);
-      }
+    // 5. Store the final array + set loading = false
+    await browser.storage.local.set({
+      historyData: allData,
+      historyLoading: false
     });
-  } catch (error) {
-    console.error('Error fetching history:', error);
+
+    console.log(`✅ Collected ${historyItems.length} items, total now: ${allData.length}`);
+  } catch (err) {
+    console.error('❌ Error collecting history:', err);
+    // Even on error, clear the loading flag
+    await browser.storage.local.set({ historyLoading: false });
   }
+
+  // Schedule next run
+  setTimeout(collectHistory, RATE_LIMIT);
 };
 
 /**
- * Collects and categorizes browsing history continuously.
- * Implements rate limiting to avoid API throttling.
- */
-export const collectHistory = async () => {
-  const endTime = Date.now();
-  const startTime = endTime - (1000 * 60 * 60 * 24 * 7); // Past week
-
-  await fetchHistory(startTime, endTime);
-  setTimeout(collectHistory, RATE_LIMIT);  // Repeat with rate limit
-};
-
-/**
- * Fetches all categorized history from SQLite for display in the popup.
- * 
- * @returns {Array} - Array of categorized history items
+ * For direct (on-demand) retrieval if needed
  */
 export const getCategorizedHistory = () => {
   return getHistory();
