@@ -9,7 +9,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default {
-  mode: 'production',
+  mode: 'production', // ✅ Set to production for optimized build
+  devtool: false, // ✅ Disable source maps to prevent invalid URL errors
   entry: {
     background: './src/background/background.js',
     popup: './src/popup/popup.js',
@@ -37,15 +38,15 @@ export default {
   plugins: [
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
-        patterns: [
-          { from: 'manifest.json', to: 'manifest.json' },
-          { from: 'src/popup/popup.html', to: 'popup.html' },
-          { from: 'src/popup/popup.css', to: 'popup.css' },
-          { from: 'src/options/options.html', to: 'options.html' },
-          { from: 'src/options/options.css', to: 'options.css' },
-          { from: 'assets', to: 'assets' }
-        ]
-      })
+      patterns: [
+        { from: 'manifest.json', to: 'manifest.json' },
+        { from: 'src/popup/popup.html', to: 'popup.html' },
+        { from: 'src/popup/popup.css', to: 'popup.css' },
+        { from: 'src/options/options.html', to: 'options.html' },
+        { from: 'src/options/options.css', to: 'options.css' },
+        { from: 'assets', to: 'assets' }
+      ]
+    })
   ],
   resolve: {
     extensions: ['.js'],
@@ -56,5 +57,6 @@ export default {
     }
   }
 };
+
 
 
