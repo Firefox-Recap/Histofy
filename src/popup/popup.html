@@ -1,49 +1,13 @@
-<!-- popup.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Histofy</title>
-  <link rel="stylesheet" href="popup.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Popup</title>
 </head>
 <body>
-  <div class="popup-container">
-    <h2>Histofy - Browsing History</h2>
-
-    <!-- Show this while loading -->
-    <p id="loading-message" style="display: none;">⏳ Loading history...</p>
-
-    <!-- Nav for filtering history -->
-    <br>
-    
-    <div class="dwm-nav">
-      <button class="dwm-nav-item active" onclick="selectTab(this)">Day</button>
-      <button class="dwm-nav-item" onclick="selectTab(this)">Week</button>
-      <button class="dwm-nav-item" onclick="selectTab(this)">Month</button>
-    </div>
-
-    <br>
-
-    <!-- changes based on day/month/week selected -->
-    <h2 id="selected-view">Day</h2>
-
-    <!-- Graph section -->
-    <div id="graph">
-      <!-- GRAPH HERE CHANGES BASED ON USER SETTINGS -->
-    </div>
-
-    <!-- Summary section -->
-    <div id="summary">
-      Summary:
-    </div>
-
-    <!-- History results -->
-    <ul id="history-list">
-      <!-- Categorized history will be injected here -->
-    </ul>
-  </div>
-
-  <!-- Ensure popup.js loads AFTER the DOM is ready -->
+  <div id="root"></div>
+  <h1>Firefox Recap</h1>
   <script src="popup.bundle.js"></script>
 </body>
 </html>

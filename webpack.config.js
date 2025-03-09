@@ -13,7 +13,7 @@ export default {
   devtool: false, // ✅ Disable source maps to prevent invalid URL errors
   entry: {
     background: './src/background/background.js',
-    popup: './src/popup/popup.js',
+    popup: './src/popup/popup.jsx',
     options: './src/options/options.js',
     content: './src/content/content.js'
   },
@@ -24,12 +24,12 @@ export default {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            presets: ['@babel/preset-env','@babel/preset-react']
           }
         }
       }
@@ -49,7 +49,7 @@ export default {
     })
   ],
   resolve: {
-    extensions: ['.js'],
+    extensions: ['.js','.jsx'],
     fallback: {
       "crypto": false,
       "path": false,

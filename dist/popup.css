@@ -1,36 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    min-width: 300px;
-    max-width: 400px;
+    min-width: 600px;
+    max-width: 700px;
     background-color: #1e1e1e;
     color: #fff;
-}
-
-.popup-container {
-    padding: 15px;
-}
-
-h2 {
-    font-size: 18px;
-    margin: 0 0 10px;
-    color: #4CAF50;
-}
-
-ul#history-list {
-    list-style: none;
-    padding: 0;
-}
-
-ul#history-list li {
-    padding: 5px 0;
-    border-bottom: 1px solid #333;
-}
-
-ul#history-list li a {
-    color: #9CDCFE;
-    text-decoration: none;
-}
-
-ul#history-list li a:hover {
-    text-decoration: underline;
 }
